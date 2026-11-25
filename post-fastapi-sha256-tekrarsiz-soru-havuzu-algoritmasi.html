@@ -1,53 +1,63 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark">
+<html lang="tr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI ve SHA-256 ile Tekrarsız Soru Havuzu ve Akıllı Test Algoritması — Emre Aldanmaz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header class="navbar">
-        <div class="container nav-content">
-            <a href="index.html" class="brand">
-                <span class="brand-dot"></span>
-                <span>emre<span class="accent">.dev</span></span>
+    <header class="lab-topbar">
+        <div class="container topbar-inner">
+            <a href="index.html" class="lab-brand">
+                <span class="status-led"></span>
+                <span class="mono">SYS://EMRE.ALDANMAZ</span>
             </a>
-            <nav class="nav-links" id="navLinks">
-                <a href="index.html#hakkimda">Hakkımda</a>
-                <a href="index.html#projeler">Projeler</a>
-                <a href="index.html#blog">Blog</a>
-                <a href="index.html#iletisim">İletişim</a>
+
+            <nav class="fkey-nav" id="navLinks" aria-label="Fonksiyon Kısayol Menüsü">
+                <a href="index.html#hakkimda" class="fkey-item" data-fkey="F1" data-target="hakkimda">
+                    <kbd>F1</kbd><span>HAKKIMDA</span>
+                </a>
+                <a href="index.html#projeler" class="fkey-item" data-fkey="F2" data-target="projeler">
+                    <kbd>F2</kbd><span>PROJELER</span>
+                </a>
+                <a href="index.html#blog" class="fkey-item" data-fkey="F3" data-target="blog">
+                    <kbd>F3</kbd><span>BLOG</span>
+                </a>
+                <a href="index.html#iletisim" class="fkey-item" data-fkey="F4" data-target="iletisim">
+                    <kbd>F4</kbd><span>İLETİŞİM</span>
+                </a>
             </nav>
-            <div class="nav-actions">
-                <button id="themeToggle" class="icon-btn" aria-label="Temayı Değiştir" title="Tema Değiştir">
-                    <span id="themeIcon">☀️</span>
+
+            <div class="topbar-controls">
+                <span class="clock-pill mono" id="labClock">00:00:00</span>
+                <button id="themeToggle" class="lab-btn-icon" aria-label="Temayı Değiştir" title="Krem / Kehribar CRT Modu">
+                    <span id="themeIcon">◐</span>
                 </button>
-                <button id="menuToggle" class="icon-btn mobile-only" aria-label="Menüyü Aç">☰</button>
+                <button id="menuToggle" class="lab-btn-icon mobile-only" aria-label="Menü">☰</button>
             </div>
         </div>
     </header>
     <main>
-<article class="post-article">
+<article class="post-view">
     <div class="container narrow">
-        <a href="index.html#blog" class="back-link">← Tüm Yazılara Dön</a>
-        <header class="post-header">
-            <div class="blog-meta">
-                <span class="blog-cat">Backend &amp; Algoritma</span>
-                <span>•</span>
-                <span>24 Kasım 2026</span>
-                <span>•</span>
-                <span>6 dk okuma</span>
-            </div>
-            <h1>FastAPI ve SHA-256 ile Tekrarsız Soru Havuzu ve Akıllı Test Algoritması</h1>
-            <p class="post-lead">Binlerce soruluk PDF/JSON veri setlerinde SHA-256 parmak izi ile mükerrer kaydı önleme ve havuz tükenene kadar aynı soruyu tekrar göstermeyen test üretim algoritması.</p>
-        </header>
+        <a href="index.html#blog" class="back-btn mono">← [ESC] YAZI LİSTESİNE DÖN</a>
 
-        <div class="post-content">
-            
+        <div class="article-sheet">
+            <header class="article-head">
+                <div class="card-top-bar mono">
+                    <span>KATEGORİ: Backend &amp; Algoritma</span>
+                    <span>24 Kasım 2026 • 6 dk okuma</span>
+                </div>
+                <h1>FastAPI ve SHA-256 ile Tekrarsız Soru Havuzu ve Akıllı Test Algoritması</h1>
+                <p class="article-lead">Binlerce soruluk PDF/JSON veri setlerinde SHA-256 parmak izi ile mükerrer kaydı önleme ve havuz tükenene kadar aynı soruyu tekrar göstermeyen test üretim algoritması.</p>
+            </header>
+
+            <div class="article-body">
+                
             <p>Yaklaşık 6.000 soruluk bir sınav hazırlık havuzu oluştururken iki temel mühendislik problemi ortaya çıkar: farklı PDF ve metin kaynaklarından içeri aktarılan soruların veritabanında kopya (duplicate) oluşturması ve öğrencinin kısa aralıklarla aynı sorulara maruz kalması.</p>
             <h3>1. Adım: Normalizasyon ve SHA-256 Tekillik Kontrolü</h3>
             <p>Soru metnindeki fazla boşluklar, satır sonları ve noktalama farklılıkları tek başına <code>UNIQUE</code> indeks kullanımını zorlaştırır. Bu nedenle her soru veritabanına yazılmadan önce normalize edilip 256-bit kriptografik özeti (hash) hesaplanır:</p>
@@ -67,25 +77,34 @@ WHERE s.ders_id = :ders_id AND kc.id IS NULL
 ORDER BY RAND()
 LIMIT :soru_sayisi;</code></pre>
             <p>İlgili konu havuzundaki tüm sorular en az bir kez çözüldüğünde <code>aktif_tur</code> sayacı otomatik olarak bir artırılır ve havuz sıfırlanarak yeni bir karıştırma döngüsü başlatılır. Böylece kullanıcı havuzdaki tüm soruları görmeden aynı soruyla tekrar karşılaşmaz.</p>
-                </div>
+                    </div>
+        </div>
     </div>
 </article>
 
 </main>
-    <footer class="footer" id="iletisim">
-        <div class="container footer-content">
+    <footer class="lab-footer" id="iletisim">
+        <div class="container footer-grid">
             <div>
-                <h3>Birlikte Çalışalım</h3>
-                <p class="muted">Yazılım geliştirme, proje iş birlikleri veya sorularınız için bana ulaşabilirsiniz.</p>
+                <span class="teletext-tag">[CH-04 // BAĞLANTI TERMİNALİ]</span>
+                <h3>İletişim & İş Birliği</h3>
+                <p class="muted">Yazılım geliştirme, açık kaynak projeler veya teknik tartışmalar için doğrudan mesaj gönderebilirsiniz.</p>
             </div>
-            <div class="social-links">
-                <a href="mailto:emrealdanmaz@example.com" class="btn btn-outline">E-posta Gönder</a>
-                <a href="https://github.com/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
-                <a href="https://linkedin.com/in/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-primary">LinkedIn</a>
+            <div class="footer-actions">
+                <a href="mailto:emrealdanmaz@example.com" class="btn btn-outline">
+                    <kbd>M</kbd> E-posta Gönder
+                </a>
+                <a href="https://github.com/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-outline">
+                    <kbd>G</kbd> GitHub
+                </a>
+                <a href="https://linkedin.com/in/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-primary">
+                    <kbd>L</kbd> LinkedIn
+                </a>
             </div>
         </div>
-        <div class="container footer-bottom">
-            <p>© 2026 Emre Aldanmaz. PHP, HTML, CSS & JS ile geliştirildi.</p>
+        <div class="container footer-status mono">
+            <span>İPUCU: Bölümler arası hızlı geçiş için klavyeden <strong>F1 - F4</strong> veya <strong>1 - 4</strong> tuşlarını kullanabilirsiniz.</span>
+            <span>© 2026 Emre Aldanmaz</span>
         </div>
     </footer>
     <script src="assets/js/app.js"></script>

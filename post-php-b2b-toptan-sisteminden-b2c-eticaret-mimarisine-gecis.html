@@ -1,53 +1,63 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark">
+<html lang="tr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP 8.2 ile B2B Toptan Altyapısından B2C Perakende E-Ticaret Mimarisine Geçiş — Emre Aldanmaz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header class="navbar">
-        <div class="container nav-content">
-            <a href="index.html" class="brand">
-                <span class="brand-dot"></span>
-                <span>emre<span class="accent">.dev</span></span>
+    <header class="lab-topbar">
+        <div class="container topbar-inner">
+            <a href="index.html" class="lab-brand">
+                <span class="status-led"></span>
+                <span class="mono">SYS://EMRE.ALDANMAZ</span>
             </a>
-            <nav class="nav-links" id="navLinks">
-                <a href="index.html#hakkimda">Hakkımda</a>
-                <a href="index.html#projeler">Projeler</a>
-                <a href="index.html#blog">Blog</a>
-                <a href="index.html#iletisim">İletişim</a>
+
+            <nav class="fkey-nav" id="navLinks" aria-label="Fonksiyon Kısayol Menüsü">
+                <a href="index.html#hakkimda" class="fkey-item" data-fkey="F1" data-target="hakkimda">
+                    <kbd>F1</kbd><span>HAKKIMDA</span>
+                </a>
+                <a href="index.html#projeler" class="fkey-item" data-fkey="F2" data-target="projeler">
+                    <kbd>F2</kbd><span>PROJELER</span>
+                </a>
+                <a href="index.html#blog" class="fkey-item" data-fkey="F3" data-target="blog">
+                    <kbd>F3</kbd><span>BLOG</span>
+                </a>
+                <a href="index.html#iletisim" class="fkey-item" data-fkey="F4" data-target="iletisim">
+                    <kbd>F4</kbd><span>İLETİŞİM</span>
+                </a>
             </nav>
-            <div class="nav-actions">
-                <button id="themeToggle" class="icon-btn" aria-label="Temayı Değiştir" title="Tema Değiştir">
-                    <span id="themeIcon">☀️</span>
+
+            <div class="topbar-controls">
+                <span class="clock-pill mono" id="labClock">00:00:00</span>
+                <button id="themeToggle" class="lab-btn-icon" aria-label="Temayı Değiştir" title="Krem / Kehribar CRT Modu">
+                    <span id="themeIcon">◐</span>
                 </button>
-                <button id="menuToggle" class="icon-btn mobile-only" aria-label="Menüyü Aç">☰</button>
+                <button id="menuToggle" class="lab-btn-icon mobile-only" aria-label="Menü">☰</button>
             </div>
         </div>
     </header>
     <main>
-<article class="post-article">
+<article class="post-view">
     <div class="container narrow">
-        <a href="index.html#blog" class="back-link">← Tüm Yazılara Dön</a>
-        <header class="post-header">
-            <div class="blog-meta">
-                <span class="blog-cat">Web Geliştirme</span>
-                <span>•</span>
-                <span>20 Kasım 2026</span>
-                <span>•</span>
-                <span>5 dk okuma</span>
-            </div>
-            <h1>PHP 8.2 ile B2B Toptan Altyapısından B2C Perakende E-Ticaret Mimarisine Geçiş</h1>
-            <p class="post-lead">Mevcut B2B/POS veritabanı şemasını bozmadan B2C son kullanıcı vitrinine dönüştürme, PDO güvenliği ve 3:4 stüdyo kadrajında otomatik görsel işleme hattı.</p>
-        </header>
+        <a href="index.html#blog" class="back-btn mono">← [ESC] YAZI LİSTESİNE DÖN</a>
 
-        <div class="post-content">
-            
+        <div class="article-sheet">
+            <header class="article-head">
+                <div class="card-top-bar mono">
+                    <span>KATEGORİ: Web Geliştirme</span>
+                    <span>20 Kasım 2026 • 5 dk okuma</span>
+                </div>
+                <h1>PHP 8.2 ile B2B Toptan Altyapısından B2C Perakende E-Ticaret Mimarisine Geçiş</h1>
+                <p class="article-lead">Mevcut B2B/POS veritabanı şemasını bozmadan B2C son kullanıcı vitrinine dönüştürme, PDO güvenliği ve 3:4 stüdyo kadrajında otomatik görsel işleme hattı.</p>
+            </header>
+
+            <div class="article-body">
+                
             <p>Halihazırda mağaza içi barkodlu satış (POS), cari hesap ve toptan sipariş yönetimi için çalışan bir PHP/MySQL sistemini son kullanıcıya (B2C) açarken en kritik hedef, arka plandaki stok ve fiyat tablolarını çoğaltmadan tek veritabanı üzerinden iki farklı deneyimi yönetmektir.</p>
             <h3>1. Tek Veritabanı, Çift Katmanlı Erişim</h3>
             <p>B2B tarafında bayiye özel iskontolu fiyatlar ve zorunlu oturum açma akışı bulunurken, B2C vitrininde ziyaretçilerin kayıt olma zorunluluğu olmadan ürünleri inceleyebilmesi gerekir. Tüm veritabanı sorgularını <code>PDO</code> prepared statements yapısına geçirerek hem SQL injection riskini ortadan kaldırdık hem de katalog filtreleme sorgularını modüler hale getirdik.</p>
@@ -67,25 +77,34 @@ if ($mevcutOran > $hedefOran) {
     $yOffset = (int)(($yukseklik - $yeniYukseklik) / 2);
 }</code></pre>
             <p>İşlenen görseller doğrudan ürün stok koduyla (örneğin <code>PRD-1042-1.webp</code>) adlandırılarak dosya sistemi ile veritabanı arasında ek bir eşleştirme tablosuna ihtiyaç duymadan çoklu galeri desteği sağlandı.</p>
-                </div>
+                    </div>
+        </div>
     </div>
 </article>
 
 </main>
-    <footer class="footer" id="iletisim">
-        <div class="container footer-content">
+    <footer class="lab-footer" id="iletisim">
+        <div class="container footer-grid">
             <div>
-                <h3>Birlikte Çalışalım</h3>
-                <p class="muted">Yazılım geliştirme, proje iş birlikleri veya sorularınız için bana ulaşabilirsiniz.</p>
+                <span class="teletext-tag">[CH-04 // BAĞLANTI TERMİNALİ]</span>
+                <h3>İletişim & İş Birliği</h3>
+                <p class="muted">Yazılım geliştirme, açık kaynak projeler veya teknik tartışmalar için doğrudan mesaj gönderebilirsiniz.</p>
             </div>
-            <div class="social-links">
-                <a href="mailto:emrealdanmaz@example.com" class="btn btn-outline">E-posta Gönder</a>
-                <a href="https://github.com/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
-                <a href="https://linkedin.com/in/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-primary">LinkedIn</a>
+            <div class="footer-actions">
+                <a href="mailto:emrealdanmaz@example.com" class="btn btn-outline">
+                    <kbd>M</kbd> E-posta Gönder
+                </a>
+                <a href="https://github.com/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-outline">
+                    <kbd>G</kbd> GitHub
+                </a>
+                <a href="https://linkedin.com/in/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-primary">
+                    <kbd>L</kbd> LinkedIn
+                </a>
             </div>
         </div>
-        <div class="container footer-bottom">
-            <p>© 2026 Emre Aldanmaz. PHP, HTML, CSS & JS ile geliştirildi.</p>
+        <div class="container footer-status mono">
+            <span>İPUCU: Bölümler arası hızlı geçiş için klavyeden <strong>F1 - F4</strong> veya <strong>1 - 4</strong> tuşlarını kullanabilirsiniz.</span>
+            <span>© 2026 Emre Aldanmaz</span>
         </div>
     </footer>
     <script src="assets/js/app.js"></script>
