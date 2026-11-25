@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI ve SHA-256 ile Tekrarsız Soru Havuzu ve Akıllı Test Algoritması — Emre Aldanmaz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="brand">
+                <span class="brand-dot"></span>
+                <span>emre<span class="accent">.dev</span></span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html#hakkimda">Hakkımda</a>
+                <a href="index.html#projeler">Projeler</a>
+                <a href="index.html#blog">Blog</a>
+                <a href="index.html#iletisim">İletişim</a>
+            </nav>
+            <div class="nav-actions">
+                <button id="themeToggle" class="icon-btn" aria-label="Temayı Değiştir" title="Tema Değiştir">
+                    <span id="themeIcon">☀️</span>
+                </button>
+                <button id="menuToggle" class="icon-btn mobile-only" aria-label="Menüyü Aç">☰</button>
+            </div>
+        </div>
+    </header>
+    <main>
+<article class="post-article">
+    <div class="container narrow">
+        <a href="index.html#blog" class="back-link">← Tüm Yazılara Dön</a>
+        <header class="post-header">
+            <div class="blog-meta">
+                <span class="blog-cat">Backend &amp; Algoritma</span>
+                <span>•</span>
+                <span>24 Kasım 2026</span>
+                <span>•</span>
+                <span>6 dk okuma</span>
+            </div>
+            <h1>FastAPI ve SHA-256 ile Tekrarsız Soru Havuzu ve Akıllı Test Algoritması</h1>
+            <p class="post-lead">Binlerce soruluk PDF/JSON veri setlerinde SHA-256 parmak izi ile mükerrer kaydı önleme ve havuz tükenene kadar aynı soruyu tekrar göstermeyen test üretim algoritması.</p>
+        </header>
+
+        <div class="post-content">
+            
+            <p>Yaklaşık 6.000 soruluk bir sınav hazırlık havuzu oluştururken iki temel mühendislik problemi ortaya çıkar: farklı PDF ve metin kaynaklarından içeri aktarılan soruların veritabanında kopya (duplicate) oluşturması ve öğrencinin kısa aralıklarla aynı sorulara maruz kalması.</p>
+            <h3>1. Adım: Normalizasyon ve SHA-256 Tekillik Kontrolü</h3>
+            <p>Soru metnindeki fazla boşluklar, satır sonları ve noktalama farklılıkları tek başına <code>UNIQUE</code> indeks kullanımını zorlaştırır. Bu nedenle her soru veritabanına yazılmadan önce normalize edilip 256-bit kriptografik özeti (hash) hesaplanır:</p>
+            <pre><code>import hashlib, re
+
+def soru_hash_uret(soru_metni: str) -> str:
+    temiz = re.sub(r"\s+", " ", soru_metni.strip().lower())
+    return hashlib.sha256(temiz.encode("utf-8")).hexdigest()</code></pre>
+            <p>MySQL tarafında <code>soru_hash</code> sütununa tanımlanan <code>UNIQUE</code> kısıtı sayesinde, toplu JSON/PDF içe aktarma sırasında binlerce soru arasından yalnızca veritabanında hiç bulunmayan yeni sorular $O(1)$ indeks aramasıyla eklenir.</p>
+            <h3>2. Adım: Tekrarsız Havuz Döngüsü (Zero-Repeat Cycle)</h3>
+            <p>Klasik <code>ORDER BY RAND()</code> sorguları büyük tablolarda hem yavaş çalışır hem de aynı sorunun art arda gelmesine yol açar. Bunun yerine kullanıcının çözdüğü soru kimliklerini takip eden iki aşamalı bir seçim algoritması kurguladık:</p>
+            <pre><code>-- Seçilen ders ve ünitedeki henüz çözülmemiş soruları önceliklendir
+SELECT s.* FROM sorular s
+LEFT JOIN kullanici_cozumleri kc
+  ON s.id = kc.soru_id AND kc.kullanici_id = :uid AND kc.tur_sayisi = :aktif_tur
+WHERE s.ders_id = :ders_id AND kc.id IS NULL
+ORDER BY RAND()
+LIMIT :soru_sayisi;</code></pre>
+            <p>İlgili konu havuzundaki tüm sorular en az bir kez çözüldüğünde <code>aktif_tur</code> sayacı otomatik olarak bir artırılır ve havuz sıfırlanarak yeni bir karıştırma döngüsü başlatılır. Böylece kullanıcı havuzdaki tüm soruları görmeden aynı soruyla tekrar karşılaşmaz.</p>
+                </div>
+    </div>
+</article>
+
+</main>
+    <footer class="footer" id="iletisim">
+        <div class="container footer-content">
+            <div>
+                <h3>Birlikte Çalışalım</h3>
+                <p class="muted">Yazılım geliştirme, proje iş birlikleri veya sorularınız için bana ulaşabilirsiniz.</p>
+            </div>
+            <div class="social-links">
+                <a href="mailto:emrealdanmaz@example.com" class="btn btn-outline">E-posta Gönder</a>
+                <a href="https://github.com/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+                <a href="https://linkedin.com/in/emrealdanmaz" target="_blank" rel="noopener" class="btn btn-primary">LinkedIn</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 Emre Aldanmaz. PHP, HTML, CSS & JS ile geliştirildi.</p>
+        </div>
+    </footer>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
